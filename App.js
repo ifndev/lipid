@@ -1,8 +1,8 @@
 import React from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DarkTheme as NavDarkTheme} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeComponent from './components/HomeComponent'
@@ -10,10 +10,23 @@ import ScannerComponent from './components/ScannerComponent';
 
 const Stack = createStackNavigator();
 
+const theme = {
+  ...PaperDarkTheme,
+  dark: true,
+  roundness: 2,
+  colors: {
+    ...PaperDarkTheme.colors,
+    primary: '#81c784',
+    accent: '#a5d6a7',
+    background: '#102027',
+    backdrop: '#102027'
+  },
+};
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <PaperProvider>
+    <NavigationContainer theme={NavDarkTheme}>
+      <PaperProvider theme={theme}>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
           <Stack.Screen name="Scanner" component={ScannerComponent} />

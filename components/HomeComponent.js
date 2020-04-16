@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { FAB, Portal, Provider } from 'react-native-paper';
+import { FAB, Portal, Provider, withTheme } from 'react-native-paper';
 
-export default class HomeComponent extends React.Component {
+class HomeComponent extends React.Component {
   state = {
     fabOpen: false,
   };
@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default withTheme(HomeComponent);
