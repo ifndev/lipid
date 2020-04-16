@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Snackbar } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
@@ -8,9 +8,8 @@ class ScannerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false,
+      snackBarVisible: false,
       hasCameraPermission: null,
-      result: null,
       productName: null,
     };
   }
@@ -18,30 +17,48 @@ class ScannerComponent extends Component {
     this._requestCameraPermission();
   }
 
+  /**
+  |--------------------------------------------------
+  | OpenFoodFacts
+  |--------------------------------------------------
+  */
+
   _fetchFromOff = (barcode) => {
     fetch(('https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json'), {
-          method: 'GET'
-      })
+      method: 'GET'
+    })
       .then((response) => response.json())
       //If response is in json then in success
       .then((responseJson) => {
-          //Success 
-          console.log(responseJson.product.generic_name);
-          this.setState({ productName: ('👌 ' + responseJson.product.generic_name)});
-          this._onToggleSnackBar()
+        //Success 
+        console.log(responseJson.product.generic_name);
+        this.setState({ productName: ('👌 ' + responseJson.product.generic_name) });
+        this._toggleSnackBar()
       })
       //If response is not in json then in error
       .catch((error) => {
-          //Error 
-          console.error(error);
-          this.setState({ productName: 'There was an error fetching the product infos'});
-          this._onToggleSnackBar()
+        //Error 
+        console.error(error);
+        this.setState({ productName: '😒 There was a problem fetching the product infos' });
+        this._toggleSnackBar()
       });
   }
 
-  _onToggleSnackBar = () => this.setState(state => ({ visible: !state.visible }));
+  /**
+  |--------------------------------------------------
+  | Snackbar
+  |--------------------------------------------------
+  */
 
-  _onDismissSnackBar = () => this.setState({ visible: false });
+  _toggleSnackBar = () => this.setState(state => ({ snackBarVisible: !state.snackBarVisible }));
+
+  _onDismissSnackBar = () => this.setState({ snackBarVisible: false });
+
+  /**
+  |--------------------------------------------------
+  | Camera permission and barcode handling
+  |--------------------------------------------------
+  */
 
   _requestCameraPermission = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -50,20 +67,26 @@ class ScannerComponent extends Component {
     });
   };
 
-  _handleBarCodeRead = ({type, data}) => {
+  _handleBarCodeRead = ({ type, data }) => {
     console.log(data)
     if (data !== this.state.result) {
-      this.setState({ result: data });
       this._fetchFromOff(data)
     }
   };
 
+  /**
+  |--------------------------------------------------
+  | RENDER STARTS HERE
+  |--------------------------------------------------
+  */
+
   render() {
-    const { visible } = this.state;
+    const { snackBarVisible } = this.state;
     return (
       <View>
+
         <Snackbar
-          visible={visible}
+          snackBarVisible={snackBarVisible}
           onDismiss={this._onDismissSnackBar}
           duration={Snackbar.DURATION_SHORT}
           action={{
@@ -73,25 +96,35 @@ class ScannerComponent extends Component {
             },
           }}
         >
-          { this.state.productName ? this.state.productName : 'Can\'t get infos from the state 🤔'}
+          {this.state.productName ? this.state.productName : 'Can\'t get infos from the state 🤔'}
         </Snackbar>
 
         {this.state.hasCameraPermission === null
           ? <Text>Requesting for camera permission</Text>
           : this.state.hasCameraPermission === false
-              ? <Text style={{ color: '#fff' }}>
-                  Camera permission is not granted
+            ? <Text style={{ color: '#fff' }}>
+              Camera permission is not granted
                 </Text>
-              : <Camera
-                  onBarCodeScanned={this._handleBarCodeRead}
-                  style={{
-                    height: Dimensions.get('window').height - 100,
-                    width: Dimensions.get('window').width,
-                  }}
-                />}
+            : <Camera
+              onBarCodeScanned={this._handleBarCodeRead}
+              style={styles.camera}
+            />}
       </View>
     );
   }
 }
+
+/**
+|--------------------------------------------------
+| StyleSheets
+|--------------------------------------------------
+*/
+
+const styles = StyleSheet.create({
+  camera: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+  },
+});
 
 export default ScannerComponent;
