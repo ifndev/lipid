@@ -1,26 +1,36 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { FAB, Portal, Provider } from 'react-native-paper';
 
 export default class HomeComponent extends React.Component {
   state = {
+    fabOpen: false,
   };
 
   _openScannerPressed = () => {
     this.props.navigation.navigate('Scanner');
+    this.setState({fabOpen: false})
   }
 
+  _onStateChange = ({ open }) => this.setState({ open });
+
   render() {
+    const { fabOpen } = this.state;
 
     return (
       <View style={styles.container}>
-        <Button
-          onPress={this._openScannerPressed}
-          icon="camera" 
-          mode="contained"
-        >
-          open scanner
-        </Button>
+           <FAB.Group
+             open={fabOpen}
+             icon={fabOpen ? 'close' : 'plus'}
+             actions={[
+               { icon: 'pencil', label: 'Add a product manually', onPress: () => console.log('Pressed manual') },
+               { icon: 'camera', label: 'Scan a barcode', onPress: () => this._openScannerPressed() },
+             ]}
+             onStateChange={this._onStateChange}
+             onPress={() => {
+                this.setState({fabOpen: !this.state.fabOpen})
+             }}
+           />
       </View>
     );
   }
