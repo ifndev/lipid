@@ -7,6 +7,12 @@ import * as Permissions from 'expo-permissions';
 class ScannerComponent extends Component {
   constructor(props) {
     super(props);
+
+  /**
+  |--------------------------------------------------
+  | STATE
+  |--------------------------------------------------
+  */
     this.state = {
       snackBarVisible: false,
       hasCameraPermission: null,
@@ -15,6 +21,12 @@ class ScannerComponent extends Component {
       torchOn: false,
     };
   }
+
+  /**
+  |--------------------------------------------------
+  | LIFECYCLE
+  |--------------------------------------------------
+  */
   componentDidMount() {
     this._requestCameraPermission();
   }
