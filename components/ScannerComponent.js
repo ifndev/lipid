@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
-import { Snackbar } from 'react-native-paper';
+import { Snackbar, Button } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
 
 class ScannerComponent extends Component {
@@ -12,6 +12,7 @@ class ScannerComponent extends Component {
       hasCameraPermission: null,
       productName: null,
       previousResult: null,
+      torchOn: false,
     };
   }
   componentDidMount() {
@@ -83,7 +84,7 @@ class ScannerComponent extends Component {
   */
 
   render() {
-    const { snackBarVisible } = this.state;
+    const { snackBarVisible, torchOn } = this.state;
     return (
       <View style={styles.scannerView}>
         <Snackbar
@@ -111,8 +112,20 @@ class ScannerComponent extends Component {
               onBarCodeScanned={this._handleBarCodeRead}
               style={styles.camera}
               ratio="1:1"
+              flashMode={torchOn ? 'torch' : 'off'}
             />}
-            
+
+            <Button 
+            mode={torchOn ? 'contained' : 'outlined'}
+            onPress={() => this.setState({torchOn: !torchOn})}
+            icon='flash'
+            style={styles.torchButton}
+            >
+            Flash
+            </Button>
+
+
+
             <View style={styles.redStripeView}></View>
       </View>
     );
@@ -146,11 +159,15 @@ const styles = StyleSheet.create({
   },
   redStripeView: {
     position:'absolute',
-    top: (Dimensions.get('window').height/2)-10,
-    bottom: (Dimensions.get('window').height/2)-30,
+    top: (Dimensions.get('window').height/2)-20,
+    bottom: (Dimensions.get('window').height/2)-20,
     left: 0,
     right: 0,
     backgroundColor: '#f00f00',
+  },
+  torchButton: {
+    position:'absolute',
+    bottom: 30,
   }
 });
 
