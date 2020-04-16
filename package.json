@@ -5,8 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
-    "test": "echo \"No tests, no problem\" && exit 1",
+    "eject": "expo eject",
+    "test": "scripts/test",
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.9",
