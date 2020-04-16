@@ -30,7 +30,7 @@ export default class HomeComponent extends React.Component {
   }
 
   scannerPressed = () => {
-
+    this.props.navigation.navigate('Scanner');
   }
 
   _onToggleSnackBar = () => this.setState(state => ({ visible: !state.visible }));
