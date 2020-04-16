@@ -112,6 +112,8 @@ class ScannerComponent extends Component {
               style={styles.camera}
               ratio="1:1"
             />}
+            
+            <View style={styles.redStripeView}></View>
       </View>
     );
   }
@@ -141,6 +143,14 @@ const styles = StyleSheet.create({
   },
   snackBar: {
     elevation: 10,
+  },
+  redStripeView: {
+    position:'absolute',
+    top: (Dimensions.get('window').height/2)-10,
+    bottom: (Dimensions.get('window').height/2)-30,
+    left: 0,
+    right: 0,
+    backgroundColor: '#f00f00',
   }
 });
 
