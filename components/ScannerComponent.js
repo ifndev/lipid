@@ -8,9 +8,10 @@ class ScannerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      snackBarVisible: false,
+      snackBarVisible: true,
       hasCameraPermission: null,
       productName: null,
+      previousResult: null,
     };
   }
   componentDidMount() {
@@ -49,7 +50,9 @@ class ScannerComponent extends Component {
   |--------------------------------------------------
   */
 
-  _toggleSnackBar = () => this.setState(state => ({ snackBarVisible: !state.snackBarVisible }));
+  _toggleSnackBar = () => {
+    this.setState(state => ({ snackBarVisible: !state.snackBarVisible }))
+  };
 
   _onDismissSnackBar = () => this.setState({ snackBarVisible: false });
 
@@ -67,7 +70,7 @@ class ScannerComponent extends Component {
   };
 
   _handleBarCodeRead = ({ type, data }) => {
-    if (data !== this.state.result) {
+    if (data !== this.state.previousResult) {
       this._fetchFromOff(data)
     }
   };
@@ -81,8 +84,7 @@ class ScannerComponent extends Component {
   render() {
     const { snackBarVisible } = this.state;
     return (
-      <View>
-
+      <View style={styles.scannerView}>
         <Snackbar
           snackBarVisible={snackBarVisible}
           onDismiss={this._onDismissSnackBar}
@@ -93,6 +95,7 @@ class ScannerComponent extends Component {
               // Do something
             },
           }}
+          style={styles.snackBar}
         >
           {this.state.productName ? this.state.productName : 'Can\'t get infos from the state 🤔'}
         </Snackbar>
@@ -106,6 +109,7 @@ class ScannerComponent extends Component {
             : <Camera
               onBarCodeScanned={this._handleBarCodeRead}
               style={styles.camera}
+              ratio="1:1"
             />}
       </View>
     );
@@ -119,10 +123,24 @@ class ScannerComponent extends Component {
 */
 
 const styles = StyleSheet.create({
-  camera: {
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+  scannerView: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#000000',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  camera: {
+    height: Math.min(Dimensions.get('window').height, Dimensions.get('window').width),
+    width: Math.min(Dimensions.get('window').height, Dimensions.get('window').width),
+    elevation: 0,
+  },
+  snackBar: {
+    elevation: 10,
+  }
 });
 
 export default ScannerComponent;
