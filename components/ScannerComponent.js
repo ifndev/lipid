@@ -8,7 +8,7 @@ class ScannerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      snackBarVisible: true,
+      snackBarVisible: false,
       hasCameraPermission: null,
       productName: null,
       previousResult: null,
@@ -86,7 +86,7 @@ class ScannerComponent extends Component {
     return (
       <View style={styles.scannerView}>
         <Snackbar
-          snackBarVisible={snackBarVisible}
+          visible={snackBarVisible}
           onDismiss={this._onDismissSnackBar}
           duration={Snackbar.DURATION_SHORT}
           action={{
