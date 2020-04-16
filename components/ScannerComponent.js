@@ -45,7 +45,7 @@ class ScannerComponent extends Component {
       //If response is in json then in success
       .then((responseJson) => {
         //Success
-        this.setState({ productName: ('👌 ' + responseJson.product.generic_name) });
+        this.setState({ productName: ('👌 ' + (responseJson.product.generic_name ? 'responseJson.product.generic_name' : responseJson.product.product_name)) });
         this._toggleSnackBar()
       })
       //If response is not in json then in error
