@@ -30,8 +30,7 @@ class ScannerComponent extends Component {
       .then((response) => response.json())
       //If response is in json then in success
       .then((responseJson) => {
-        //Success 
-        console.log(responseJson.product.generic_name);
+        //Success
         this.setState({ productName: ('👌 ' + responseJson.product.generic_name) });
         this._toggleSnackBar()
       })
@@ -68,7 +67,6 @@ class ScannerComponent extends Component {
   };
 
   _handleBarCodeRead = ({ type, data }) => {
-    console.log(data)
     if (data !== this.state.result) {
       this._fetchFromOff(data)
     }
