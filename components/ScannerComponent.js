@@ -71,6 +71,7 @@ class ScannerComponent extends Component {
 
   _handleBarCodeRead = ({ type, data }) => {
     if (data !== this.state.previousResult) {
+      this.setState({ previousResult: data})
       this._fetchFromOff(data)
     }
   };
