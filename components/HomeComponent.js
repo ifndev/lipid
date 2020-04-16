@@ -17,7 +17,7 @@ export default class HomeComponent extends React.Component {
       .then((responseJson) => {
           //Success 
           console.log(responseJson);
-          this.setState({ productName: ('👌 ' + responseJson.product.generic_name)});
+          this.setState({ productName: ('👌 ' + (responseJson.product.generic_name ? responseJson.product.generic_name : responseJson.product.product_name))});
           this._onToggleSnackBar()
       })
       //If response is not in json then in error
@@ -44,11 +44,14 @@ export default class HomeComponent extends React.Component {
       <View style={styles.container}>
         <Button
           onPress={this.buttonPressed}
+          mode="outlined"
         >
-          {visible ? 'Hide' : 'Show'}
+          {visible ? 'Hide snackbar' : 'Show snackbar'}
         </Button>
         <Button
           onPress={this.scannerPressed}
+          icon="camera" 
+          mode="contained"
         >
           open scanner
         </Button>
