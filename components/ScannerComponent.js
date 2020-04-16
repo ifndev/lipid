@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { Camera } from 'expo-camera';
-import { Button, Snackbar } from 'react-native-paper';
+import { Snackbar } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
 
 class ScannerComponent extends Component {
