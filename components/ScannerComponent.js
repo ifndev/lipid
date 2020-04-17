@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     bottom: (Dimensions.get('window').height/2)-20,
     left: 0,
     right: 0,
-    backgroundColor: '#f00f00',
+    backgroundColor: '#0f00f0',
   },
   torchButton: {
     position:'absolute',
