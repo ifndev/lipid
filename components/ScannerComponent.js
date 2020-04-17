@@ -53,14 +53,16 @@ class ScannerComponent extends Component {
           this._toggleSnackBar();
         }
         else {
+          const { generic_name, product_name, image_front_url, nutriscore_data } = responseJson.product
+
           lightProduct = {
             code: barcode,
-            product: {
-              generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
-              product_name: responseJson.product.product_name ? responseJson.product.product_name : "Name not found",
-              image_front_url: responseJson.product.image_front_url ? responseJson.product.image_front_url : null,
+            product: { 
+              generic_name: generic_name || null, 
+              product_name: product_name || 'Name not found',
+              image_front_url: image_front_url || null, 
               nutriscore_data: {
-                nutriscore_grade: responseJson.product.nutriscore_data.nutriscore_grade ? responseJson.product.nutriscore_data.nutriscore_grade : '?',
+                nutriscore_grade: nutriscore_data.nutriscore_grade || '?'
               }
             },
           }
