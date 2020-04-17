@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
+import NutriscoreBadge from './NutriscoreBadge'
 
 class ProductCard extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ProductCard extends Component {
               <View style={styles.rightText}>
                 <Title>{this.props.item.product.product_name}</Title>
                 <Paragraph numberOfLines={2}>{this.props.item.product.generic_name ? this.props.item.product.generic_name : 'No description available for this product'}</Paragraph>
+                <NutriscoreBadge nutriscore_grade={this.props.item.product.nutriscore_data.nutriscore_grade} style={styles.nutriscoreBadge}/>              
               </View>
           </Card.Content>
         </Card>
@@ -46,6 +48,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     marginLeft: 20,
     flex: 1,
+  },
+  nutriscoreBadge: {
   }
 })
 

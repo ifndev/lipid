@@ -59,8 +59,10 @@ class ScannerComponent extends Component {
               generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
               product_name: responseJson.product.product_name,
               image_front_url: responseJson.product.image_front_url,
-
-            }
+              nutriscore_data: {
+                nutriscore_grade: responseJson.product.nutriscore_data.nutriscore_grade,
+              }
+            },
           }
           this.props.addProduct(lightProduct);
           this.props.navigation.goBack();
