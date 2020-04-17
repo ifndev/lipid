@@ -17,7 +17,7 @@ class ProductCard extends Component {
             <Image source={{ uri: this.props.item.product.image_front_url, }} style={styles.thumbnail} />
               <View style={styles.rightText}>
                 <Title>{this.props.item.product.product_name}</Title>
-                <Paragraph>Card content</Paragraph>
+                <Paragraph numberOfLines={2}>{this.props.item.product.generic_name ? this.props.item.product.generic_name : 'No description available for this product'}</Paragraph>
               </View>
           </Card.Content>
         </Card>
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     marginLeft: 20,
+    flex: 1,
   }
 })
 
