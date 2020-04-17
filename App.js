@@ -1,11 +1,19 @@
 import React from 'react';
 import { DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
 
+
+// Navigation
 import 'react-native-gesture-handler';
-import { NavigationContainer, DarkTheme as NavDarkTheme} from '@react-navigation/native'
+import { NavigationContainer, DarkTheme as NavDarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeComponent from './components/HomeComponent'
+// Redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import productReducer from './reducers/ProductReducer';
+
+// Components
+import HomeComponent from './components/HomeComponent';
 import ScannerComponent from './components/ScannerComponent';
 
 const Stack = createStackNavigator();
@@ -23,15 +31,19 @@ const theme = {
   },
 };
 
+const store = createStore(productReducer);
+
 export default function App() {
   return (
-    <NavigationContainer theme={NavDarkTheme}>
-      <PaperProvider theme={theme}>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
-          <Stack.Screen name="Scanner" component={ScannerComponent} />
-        </Stack.Navigator>
-      </PaperProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer theme={NavDarkTheme}>
+        <PaperProvider theme={theme}>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
+            <Stack.Screen name="Scanner" component={ScannerComponent} />
+          </Stack.Navigator>
+        </PaperProvider>
+      </NavigationContainer>
+    </Provider>
   );
 }

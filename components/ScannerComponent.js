@@ -3,6 +3,9 @@ import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Snackbar, Button } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addProduct } from '../actions/ProductActions'
 
 class ScannerComponent extends Component {
   constructor(props) {
@@ -46,7 +49,17 @@ class ScannerComponent extends Component {
       .then((responseJson) => {
         //Success
         this.setState({ productName: ('👌 ' + (responseJson.product.generic_name ? responseJson.product.generic_name : responseJson.product.product_name)) });
-        this._toggleSnackBar()
+        lightProduct = {
+          code: barcode,
+          product: {
+            generic_name: responseJson.product.generic_name,
+            product_name: responseJson.product.product_name,
+            image_front_url: responseJson.product.image_front_url,
+          }
+        }
+
+        this.props.addProduct(lightProduct);
+        this.props.navigation.goBack();
       })
       //If response is not in json then in error
       .catch((error) => {
@@ -183,4 +196,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScannerComponent;
+const mapStateToProps = (state) => {
+  const { products } = state
+  return { products }
+}
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    addProduct,
+  }, dispatch)
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScannerComponent);

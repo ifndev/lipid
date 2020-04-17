@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import placeholderProducts from '../Helpers/placeholderProductList';
 import ProductCard from './ProductCard'
+import { connect } from 'react-redux';
 
 class ProductsHistory extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class ProductsHistory extends Component {
         return (
             <View>
                 <FlatList
-                    data={placeholderProducts}
+                    data={this.props.products.history}
                     keyExtractor = {(item) => item.code}
                     renderItem={({ item }) => <ProductCard item={item} />}
                 />
@@ -24,4 +25,10 @@ class ProductsHistory extends Component {
     }
 }
 
-export default ProductsHistory;
+const mapStateToProps = (state) => {
+    const { products } = state
+    return { products }
+}
+
+
+export default connect(mapStateToProps)(ProductsHistory);
