@@ -11,11 +11,11 @@ class ScannerComponent extends Component {
   constructor(props) {
     super(props);
 
-  /**
-  |--------------------------------------------------
-  | STATE
-  |--------------------------------------------------
-  */
+    /**
+    |--------------------------------------------------
+    | STATE
+    |--------------------------------------------------
+    */
     this.state = {
       snackBarVisible: false,
       hasCameraPermission: null,
@@ -48,17 +48,23 @@ class ScannerComponent extends Component {
       //If response is in json then in success
       .then((responseJson) => {
         //Success
-        lightProduct = {
-          code: barcode,
-          product: {
-            generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
-            product_name: responseJson.product.product_name,
-            image_front_url: responseJson.product.image_front_url,
-          }
+        if (responseJson.status_verbose === "product not found") {
+          this.setState({ snackbarMessage: '😒 Can\'t find this product '});
+          this._toggleSnackBar();
         }
+        else {
+          lightProduct = {
+            code: barcode,
+            product: {
+              generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
+              product_name: responseJson.product.product_name,
+              image_front_url: responseJson.product.image_front_url,
 
-        this.props.addProduct(lightProduct);
-        this.props.navigation.goBack();
+            }
+          }
+          this.props.addProduct(lightProduct);
+          this.props.navigation.goBack();
+        } 
       })
       //If response is not in json then in error
       .catch((error) => {
@@ -96,7 +102,7 @@ class ScannerComponent extends Component {
 
   _handleBarCodeRead = ({ type, data }) => {
     if (data !== this.state.previousResult) {
-      this.setState({ previousResult: data})
+      this.setState({ previousResult: data })
       this._fetchFromOff(data)
     }
   };
@@ -139,18 +145,18 @@ class ScannerComponent extends Component {
               flashMode={torchOn ? 'torch' : 'off'}
             />}
 
-            <Button 
-            mode={torchOn ? 'contained' : 'outlined'}
-            onPress={() => this.setState({torchOn: !torchOn})}
-            icon='flash'
-            style={styles.torchButton}
-            >
-            Flash
+        <Button
+          mode={torchOn ? 'contained' : 'outlined'}
+          onPress={() => this.setState({ torchOn: !torchOn })}
+          icon='flash'
+          style={styles.torchButton}
+        >
+          Flash
             </Button>
 
 
 
-            <View style={styles.redStripeView}></View>
+        <View style={styles.redStripeView}></View>
       </View>
     );
   }
@@ -182,15 +188,15 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   redStripeView: {
-    position:'absolute',
-    top: (Dimensions.get('window').height/2)-20,
-    bottom: (Dimensions.get('window').height/2)-20,
+    position: 'absolute',
+    top: (Dimensions.get('window').height / 2) - 20,
+    bottom: (Dimensions.get('window').height / 2) - 20,
     left: 0,
     right: 0,
     backgroundColor: '#f00f00',
   },
   torchButton: {
-    position:'absolute',
+    position: 'absolute',
     bottom: 30,
   }
 });
