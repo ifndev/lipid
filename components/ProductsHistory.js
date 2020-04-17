@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import placeholderProducts from '../Helpers/placeholderProductList';
 import ProductCard from './ProductCard'
 import { connect } from 'react-redux';
 
