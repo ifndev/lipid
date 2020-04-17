@@ -57,10 +57,10 @@ class ScannerComponent extends Component {
             code: barcode,
             product: {
               generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
-              product_name: responseJson.product.product_name,
-              image_front_url: responseJson.product.image_front_url,
+              product_name: responseJson.product.product_name ? responseJson.product.product_name : "Name not found",
+              image_front_url: responseJson.product.image_front_url ? responseJson.product.image_front_url : null,
               nutriscore_data: {
-                nutriscore_grade: responseJson.product.nutriscore_data.nutriscore_grade,
+                nutriscore_grade: responseJson.product.nutriscore_data.nutriscore_grade ? responseJson.product.nutriscore_data.nutriscore_grade : '?',
               }
             },
           }
