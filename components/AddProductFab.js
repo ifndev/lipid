@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Portal, Provider, FAB, withTheme } from 'react-native-paper';
+import { StyleSheet, Dimensions, View } from 'react-native';
+import { Portal, FAB, withTheme } from 'react-native-paper';
 
 class AddProductFab extends Component {
   constructor(props) {
@@ -36,8 +37,9 @@ class AddProductFab extends Component {
   render() {
     const { fabOpen } = this.state;
     return (
-      <Portal>
-            <FAB.Group
+      <View style={styles.Container}>
+        <Portal>
+          <FAB.Group
             open={fabOpen}
             icon={fabOpen ? 'close' : 'plus'}
             visible={this.props.visible}
@@ -49,10 +51,18 @@ class AddProductFab extends Component {
             onPress={() => {
               this.setState({ fabOpen: !this.state.fabOpen })
             }}
+            style={styles.FAB}
           />
-      </Portal>
+        </Portal>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  FAB: {
+    bottom: 60,
+  },
+});
 
 export default withTheme(AddProductFab);
