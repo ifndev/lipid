@@ -2,7 +2,9 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { withTheme, BottomNavigation, Text } from 'react-native-paper';
 import AddProductFab from './AddProductFab';
-import ProductsHistory from './ProductsHistory';
+import ProductsHistory from './Tabs/ProductsHistory';
+import Dashboard from './Tabs/Dashboard';
+import Profile from './Tabs/Profile';
 
 /**
 |--------------------------------------------------
@@ -10,11 +12,11 @@ import ProductsHistory from './ProductsHistory';
 |--------------------------------------------------
 */
 
-const DashboardRoute = () => <Text>This is the dashboard. Cool things should happen here</Text>;
+const DashboardRoute = () => <Dashboard/>;
 
 const HistoryRoute = () => <ProductsHistory />;
 
-const ProfileRoute = () => <Text>This is where the profile goes</Text>;
+const ProfileRoute = () => <Profile/>;
 
 class HomeComponent extends React.Component {
 

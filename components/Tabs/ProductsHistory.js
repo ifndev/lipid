@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import ProductCard from './ProductCard'
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Title } from 'react-native-paper';
+import ProductCard from '../ProductCard'
 import { connect } from 'react-redux';
 
 class ProductsHistory extends Component {
@@ -13,7 +14,8 @@ class ProductsHistory extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+                <Title style={styles.title}>History</Title>
                 <FlatList
                     data={this.props.products.history.reverse()}
                     keyExtractor = {(item) => item.code}
@@ -29,5 +31,19 @@ const mapStateToProps = (state) => {
     return { products }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        alignContent: "center",
+        justifyContent: "space-evenly",
+    },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        paddingTop: 70,
+        paddingBottom: 40,
+        alignSelf: 'center',
+    },
+});
 
 export default connect(mapStateToProps)(ProductsHistory);
