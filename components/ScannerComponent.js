@@ -19,7 +19,7 @@ class ScannerComponent extends Component {
     this.state = {
       snackBarVisible: false,
       hasCameraPermission: null,
-      productName: null,
+      snackbarMessage: null,
       previousResult: null,
       torchOn: false,
     };
@@ -48,7 +48,6 @@ class ScannerComponent extends Component {
       //If response is in json then in success
       .then((responseJson) => {
         //Success
-        this.setState({ productName: ('👌 ' + (responseJson.product.generic_name ? responseJson.product.generic_name : responseJson.product.product_name)) });
         lightProduct = {
           code: barcode,
           product: {
@@ -65,7 +64,7 @@ class ScannerComponent extends Component {
       .catch((error) => {
         //Error 
         console.error(error);
-        this.setState({ productName: '😒 There was a problem fetching the product infos' });
+        this.setState({ snackbarMessage: '😒 There was a problem fetching the product infos' });
         this._toggleSnackBar()
       });
   }
@@ -124,7 +123,7 @@ class ScannerComponent extends Component {
           }}
           style={styles.snackBar}
         >
-          {this.state.productName ? this.state.productName : 'Can\'t get infos from the state 🤔'}
+          {this.state.snackbarMessage ? this.state.snackbarMessage : 'Can\'t get infos from the state 🤔'}
         </Snackbar>
 
         {this.state.hasCameraPermission === null
@@ -195,6 +194,12 @@ const styles = StyleSheet.create({
     bottom: 30,
   }
 });
+
+/**
+|--------------------------------------------------
+| REDUX STATE
+|--------------------------------------------------
+*/
 
 const mapStateToProps = (state) => {
   const { products } = state
