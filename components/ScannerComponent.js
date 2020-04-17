@@ -51,7 +51,7 @@ class ScannerComponent extends Component {
         lightProduct = {
           code: barcode,
           product: {
-            generic_name: responseJson.product.generic_name,
+            generic_name: responseJson.product.generic_name ? responseJson.product.generic_name : null,
             product_name: responseJson.product.product_name,
             image_front_url: responseJson.product.image_front_url,
           }
