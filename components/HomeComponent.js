@@ -22,8 +22,6 @@ class HomeComponent extends React.Component {
   |--------------------------------------------------
   */
   render() {
-    
-
     return (
       <View style={styles.container}>
            <AddProductFab navigation={this.props.navigation}/>

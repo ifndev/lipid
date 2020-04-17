@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FAB, withTheme } from 'react-native-paper';
+import { Portal, Provider, FAB, withTheme } from 'react-native-paper';
 
 
 class AddProductFab extends Component {
@@ -12,18 +12,18 @@ class AddProductFab extends Component {
     |--------------------------------------------------
     */
     this.state = {
-        fabOpen: false,
+      fabOpen: false,
     };
   }
 
-    /**
-    |--------------------------------------------------
-    | FAB Handling
-    |--------------------------------------------------
-    */
- _openScannerPressed = () => {
+  /**
+  |--------------------------------------------------
+  | FAB Handling
+  |--------------------------------------------------
+  */
+  _openScannerPressed = () => {
     this.props.navigation.navigate('Scanner');
-    this.setState({fabOpen: false})
+    this.setState({ fabOpen: false })
   }
 
   _onStateChange = ({ open }) => this.setState({ open });
@@ -37,18 +37,20 @@ class AddProductFab extends Component {
   render() {
     const { fabOpen } = this.state;
     return (
-        <FAB.Group
-        open={fabOpen}
-        icon={fabOpen ? 'close' : 'plus'}
-        actions={[
-          { icon: 'pencil', label: 'Add a product manually', onPress: () => console.log('Pressed manual') },
-          { icon: 'camera', label: 'Scan a barcode', onPress: () => this._openScannerPressed() },
-        ]}
-        onStateChange={this._onStateChange}
-        onPress={() => {
-           this.setState({fabOpen: !this.state.fabOpen})
-        }}
-      />
+        <Portal>
+          <FAB.Group
+            open={fabOpen}
+            icon={fabOpen ? 'close' : 'plus'}
+            actions={[
+              { icon: 'pencil', label: 'Add a product manually', onPress: () => console.log('Pressed manual') },
+              { icon: 'camera', label: 'Scan a barcode', onPress: () => this._openScannerPressed() },
+            ]}
+            onStateChange={this._onStateChange}
+            onPress={() => {
+              this.setState({ fabOpen: !this.state.fabOpen })
+            }}
+          />
+        </Portal>
     );
   }
 }
