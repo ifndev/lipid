@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Portal, Provider, FAB, withTheme } from 'react-native-paper';
 
-
 class AddProductFab extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +36,11 @@ class AddProductFab extends Component {
   render() {
     const { fabOpen } = this.state;
     return (
-        <Portal>
-          <FAB.Group
+      <Portal>
+            <FAB.Group
             open={fabOpen}
             icon={fabOpen ? 'close' : 'plus'}
+            visible={this.props.visible}
             actions={[
               { icon: 'pencil', label: 'Add a product manually', onPress: () => console.log('Pressed manual') },
               { icon: 'camera', label: 'Scan a barcode', onPress: () => this._openScannerPressed() },
@@ -50,7 +50,7 @@ class AddProductFab extends Component {
               this.setState({ fabOpen: !this.state.fabOpen })
             }}
           />
-        </Portal>
+      </Portal>
     );
   }
 }
