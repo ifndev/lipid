@@ -16,7 +16,7 @@ class ProductCard extends Component {
           <Card.Content style={styles.cardContent}>
             <Image source={{ uri: this.props.item.product.image_front_url, }} style={styles.thumbnail} />
               <View style={styles.rightText}>
-                <Title>{this.props.item.product.generic_name ? this.props.item.product.generic_name : this.props.item.product.product_name}</Title>
+                <Title>{this.props.item.product.product_name}</Title>
                 <Paragraph>Card content</Paragraph>
               </View>
           </Card.Content>
