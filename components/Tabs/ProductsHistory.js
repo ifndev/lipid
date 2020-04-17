@@ -17,7 +17,7 @@ class ProductsHistory extends Component {
             <View style={styles.container}>
                 <Title style={styles.title}>History</Title>
                 <FlatList
-                    data={this.props.products.history.reverse()}
+                    data={this.props.products.history}
                     keyExtractor = {(item) => item.code}
                     renderItem={({ item }) => <ProductCard item={item} />}
                 />

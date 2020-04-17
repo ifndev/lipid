@@ -62,7 +62,7 @@ const productReducer = (state = INITIAL_STATE, action) => {
             } = state;
 
         const addedProduct = action.payload;
-        history.push(addedProduct);
+        history.unshift(addedProduct);
 
         const newState = {history};
         return newState;
