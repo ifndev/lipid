@@ -4,25 +4,24 @@ import placeholderProducts from '../Helpers/placeholderProductList';
 import ProductCard from './ProductCard'
 
 class ProductsHistory extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
 
-  render() {
-    return (
-      <View>
-          <FlatList
-        data={placeholderProducts}
-        renderItem={
-            ({item}) => <ProductCard item={item}/>
-        }
-      />
-      </View>
-    );
-  }
+        };
+    }
+
+    render() {
+        return (
+            <View>
+                <FlatList
+                    data={placeholderProducts}
+                    keyExtractor = {(item) => item.code}
+                    renderItem={({ item }) => <ProductCard item={item} />}
+                />
+            </View>
+        );
+    }
 }
 
 export default ProductsHistory;
