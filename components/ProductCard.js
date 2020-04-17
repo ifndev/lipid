@@ -13,7 +13,7 @@ class ProductCard extends Component {
     return (
         <View>
             <Card>
-                <Card.Title title={this.props.item.product.generic_name} subtitle="sous-titre"/>
+                <Card.Title title={(this.props.item.product.generic_name ? this.props.item.product.generic_name : this.props.item.product.product_name)} subtitle="sous-titre"/>
                 <Card.Cover source={{ uri: this.props.item.product.image_front_url }}/>
             </Card>
         </View>
