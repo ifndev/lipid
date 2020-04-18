@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import NutriscoreBadge from './NutriscoreBadge'
 
 class ProductCard extends Component {
@@ -8,6 +8,11 @@ class ProductCard extends Component {
     super(props);
     this.state = {
     };
+  }
+
+  _removeMe = () => {
+    console.log("prompted to remove " + this.props.item.code);
+    this.props.removeProduct(this.props.item.code);
   }
 
   render() {
@@ -22,6 +27,11 @@ class ProductCard extends Component {
                 <NutriscoreBadge grade={this.props.item.product.nutriscore_data.grade} style={styles.nutriscoreBadge}/>              
               </View>
           </Card.Content>
+          <Card.Actions>
+            <Button icon="delete" onPress={() => this._removeMe()}>
+              remove
+            </Button>
+          </Card.Actions>
         </Card>
 
       </View>

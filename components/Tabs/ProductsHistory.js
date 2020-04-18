@@ -3,6 +3,8 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { Title } from 'react-native-paper';
 import ProductCard from '../ProductCard'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { removeProduct } from '../../redux/actions/ProductActions'
 
 class ProductsHistory extends Component {
     constructor(props) {
@@ -19,16 +21,11 @@ class ProductsHistory extends Component {
                 <FlatList
                     data={this.props.products.history}
                     keyExtractor = {(item) => item.code}
-                    renderItem={({ item }) => <ProductCard item={item} />}
+                    renderItem={({ item }) => <ProductCard item={item} removeProduct={this.props.removeProduct}/>}
                 />
             </View>
         );
     }
-}
-
-const mapStateToProps = (state) => {
-    const { products } = state
-    return { products }
 }
 
 const styles = StyleSheet.create({
@@ -45,5 +42,21 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 });
+/**
+|--------------------------------------------------
+| REDUX STATE
+|--------------------------------------------------
+*/
 
-export default connect(mapStateToProps)(ProductsHistory);
+const mapStateToProps = (state) => {
+    const { products } = state
+    return { products }
+}
+  
+const mapDispatchToProps = dispatch => (
+bindActionCreators({
+    removeProduct
+}, dispatch)
+);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsHistory);
