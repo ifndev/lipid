@@ -1,6 +1,5 @@
 import React from 'react';
 import { DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
-import store from './redux/Store';
 
 // Navigation
 import 'react-native-gesture-handler';
@@ -8,9 +7,8 @@ import { NavigationContainer, DarkTheme as NavDarkTheme } from '@react-navigatio
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Redux
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import productReducer from './redux/reducers/ProductReducer';
+import store from './redux/configureStore';
 
 // Components
 import HomeComponent from './components/HomeComponent';
