@@ -55,8 +55,6 @@ class ScannerComponent extends Component {
         //This API responds with status 200 even if no product is found. We have to chech status_verbose
         //TODO: Error if status isn't good news but is different than that
 
-        console.log(responseJson.status_verbose)
-
         if (responseJson.status_verbose === "product not found") {
           this.setState({ snackbarMessage: '😒 Can\'t find this product '});
           this._toggleSnackBar();
@@ -119,7 +117,6 @@ class ScannerComponent extends Component {
     this.setState({cameraVisible: false});
 
     if (!this.state.previousResults.includes(data)) { //the scanner scans the same barcode infinitely, so we have to prevent the same product from being added 30 times a second
-      console.log("2")
       this.setState({ previousResults: [...this.state.previousResults, data] }); //Append the barcode to previousResults
       this._fetchFromOff(data);
     }
