@@ -22,6 +22,7 @@ class ScannerComponent extends Component {
       snackbarMessage: null,
       previousResult: null,
       torchOn: false,
+      cameraVisible: true,
     };
   }
 
@@ -105,10 +106,12 @@ class ScannerComponent extends Component {
   };
 
   _handleBarCodeRead = ({ type, data }) => {
+    this.setState({cameraVisible: false});
     if (data !== this.state.previousResult) {
-      this.setState({ previousResult: data })
-      this._fetchFromOff(data)
+      this.setState({ previousResult: data });
+      this._fetchFromOff(data);
     }
+    this.setState({cameraVisible: true});
   };
 
   /**
