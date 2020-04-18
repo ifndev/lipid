@@ -1,19 +1,35 @@
-import { combineReducers } from 'redux';
 import { createStore } from 'redux';
 
-//Persist
+//redux-persist related imports
 import { persistStore, persistReducer } from 'redux-persist';
-import {AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 //Reducers
-import productReducer from './reducers/ProductReducer'
+import rootReducer from './reducers/RootReducer'
 
-//Persist config
 const persistConfig = {
     key: "root",
     storage: AsyncStorage
 };
 
-export default createStore(combineReducers({
-    products: productReducer,
-}));
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer)
+const persistor = persistStore(store)
+
+const getPersistor = () => persistor;
+const getStore = () => store;
+const getState = () => {
+    return store.getState();
+};
+
+export {
+    getStore,
+    getState,
+    getPersistor
+};
+
+export default {
+    getStore,
+    getState,
+    getPersistor
+}

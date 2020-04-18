@@ -8,7 +8,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // Redux
 import { Provider } from 'react-redux';
-import store from './redux/configureStore';
+import { getStore, getPersistor } from './redux/configureStore';
+
+//Redux persist
+import { PersistGate } from 'redux-persist/integration/react'
 
 // Components
 import HomeComponent from './components/HomeComponent';
@@ -30,16 +33,21 @@ const theme = {
 };
 
 export default function App() {
+  const store = getStore();
+  const persistor = getPersistor();
+
   return (
     <Provider store={store}>
-      <NavigationContainer theme={NavDarkTheme}>
-        <PaperProvider theme={theme}>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
-            <Stack.Screen name="Scanner" component={ScannerComponent} />
-          </Stack.Navigator>
-        </PaperProvider>
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer theme={NavDarkTheme}>
+          <PaperProvider theme={theme}>
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Home" component={HomeComponent} options={{ headerShown: false }} />
+              <Stack.Screen name="Scanner" component={ScannerComponent} />
+            </Stack.Navigator>
+          </PaperProvider>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
