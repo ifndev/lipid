@@ -55,6 +55,8 @@ class ScannerComponent extends Component {
         //This API responds with status 200 even if no product is found. We have to chech status_verbose
         //TODO: Error if status isn't good news but is different than that
 
+        console.log(responseJson.status_verbose)
+
         if (responseJson.status_verbose === "product not found") {
           this.setState({ snackbarMessage: '😒 Can\'t find this product '});
           this._toggleSnackBar();
@@ -62,7 +64,8 @@ class ScannerComponent extends Component {
 
         else {
           const { generic_name, product_name, image_front_url, nutriscore_data } = responseJson.product
-          
+
+          // Add the product to the redux state
           this.props.addProduct({
             code: barcode,
             product: { 
@@ -70,10 +73,11 @@ class ScannerComponent extends Component {
               product_name: product_name || 'Name not found',
               image_front_url: image_front_url || null, 
               nutriscore_data: {
-                grade: nutriscore_data.grade || '?'
+                grade: nutriscore_data?.grade || '?'
               }
             },
           });
+          //Go back to Home
           this.props.navigation.goBack();
         }
       })
@@ -112,7 +116,6 @@ class ScannerComponent extends Component {
   };
 
   _handleBarCodeRead = ({ type, data }) => {
-    console.log(data)
     this.setState({cameraVisible: false});
 
     if (!this.state.previousResults.includes(data)) { //the scanner scans the same barcode infinitely, so we have to prevent the same product from being added 30 times a second
