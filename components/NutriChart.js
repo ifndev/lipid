@@ -76,22 +76,52 @@ class NutriChart extends Component {
                             x={labelCentroid[0]}
                             y={labelCentroid[1] + 5}
                             textAnchor="middle"
-                >{data.label}</SvgText>
+                        >{data.label}</SvgText>
                     </G>
                 )
             })
+        }
+
+        const CenterLabel = () => {
+            return (
+                <G>
+                    <SvgText
+                        fill="white"
+                        stroke="none"
+                        fontSize="20"
+                        fontWeight="bold"
+                        x={0}
+                        y={0}
+                        textAnchor="middle"
+                    >
+                        1337.4/1486
+                    </SvgText>
+                    <SvgText
+                        fill="white"
+                        stroke="none"
+                        fontSize="20"
+                        fontWeight="bold"
+                        x={0}
+                        y={20}
+                        textAnchor="middle"
+                    >
+                        Calories
+                    </SvgText>
+                </G>
+            )
         }
 
         return (
             <PieChart
                 style={{ height: 300, padding: 0 }}
                 data={pieData}
-                innerRadius={40}
-                outerRadius={55}
-                labelRadius={100}
+                innerRadius={75}
+                outerRadius={95}
+                labelRadius={140}
                 sort={(a, b) => a} //No sorting, we want the order to be the same as in the "data" array
             >
                 <Labels />
+                <CenterLabel />
             </PieChart>
         )
     }
