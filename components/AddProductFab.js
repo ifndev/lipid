@@ -61,7 +61,7 @@ class AddProductFab extends Component {
 
 const styles = StyleSheet.create({
   FAB: {
-    bottom: 60,
+    bottom: 54,
   },
 });
 
