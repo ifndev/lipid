@@ -20,7 +20,7 @@ class ScannerComponent extends Component {
       snackBarVisible: false,
       hasCameraPermission: null,
       snackbarMessage: null,
-      previousResult: null,
+      previousResults: [], // Now a list, see #7
       torchOn: false,
       cameraVisible: true,
     };
@@ -55,8 +55,7 @@ class ScannerComponent extends Component {
         }
         else {
           const { generic_name, product_name, image_front_url, nutriscore_data } = responseJson.product
-
-          lightProduct = {
+          this.props.addProduct({
             code: barcode,
             product: { 
               generic_name: generic_name || null, 
@@ -66,8 +65,7 @@ class ScannerComponent extends Component {
                 grade: nutriscore_data.grade || '?'
               }
             },
-          }
-          this.props.addProduct(lightProduct);
+          });
           this.props.navigation.goBack();
         } 
       })
@@ -106,9 +104,12 @@ class ScannerComponent extends Component {
   };
 
   _handleBarCodeRead = ({ type, data }) => {
+    console.log(data)
     this.setState({cameraVisible: false});
-    if (data !== this.state.previousResult) {
-      this.setState({ previousResult: data });
+
+    if (!this.state.previousResults.includes(data)) { //the scanner scans the same barcode infinitely, so we have to prevent the same product from being added 30 times a second
+      console.log("2")
+      this.setState({ previousResults: [...this.state.previousResults, data] }); //Append the barcode to previousResults
       this._fetchFromOff(data);
     }
     this.setState({cameraVisible: true});
