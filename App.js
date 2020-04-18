@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // Redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import productReducer from './reducers/ProductReducer';
+import productReducer from './redux/reducers/ProductReducer';
 
 // Components
 import HomeComponent from './components/HomeComponent';

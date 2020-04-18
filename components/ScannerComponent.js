@@ -5,7 +5,7 @@ import { Snackbar, Button } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addProduct } from '../actions/ProductActions'
+import { addProduct } from '../redux/actions/ProductActions'
 
 class ScannerComponent extends Component {
   constructor(props) {
