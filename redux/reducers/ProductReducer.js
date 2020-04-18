@@ -62,17 +62,11 @@ const productReducer = (state = INITIAL_STATE, action) => {
 
             const addedProduct = action.payload;
             history.unshift(addedProduct);
-
-            const newState = {history};
-        return newState;
+        return {history};
 
         case 'REMOVE_PRODUCT':
             const remcode = action.payload;
-            const newState_r = history.filter((obj) => {
-                console.log(obj.code + ' ' + remcode)
-                return obj.code !== remcode
-            });
-        return { history: newState_r }
+        return { history: history.filter(obj => obj.code !== remcode)}
 
         default:
             return state
