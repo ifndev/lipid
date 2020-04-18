@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-
 const INITIAL_STATE = {
     history: [
         {
@@ -72,6 +70,4 @@ const productReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default combineReducers({
-    products: productReducer,
-});
+export default productReducer;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
-
+import store from './redux/Store';
 
 // Navigation
 import 'react-native-gesture-handler';
@@ -30,8 +30,6 @@ const theme = {
     backdrop: '#102027'
   },
 };
-
-const store = createStore(productReducer);
 
 export default function App() {
   return (
