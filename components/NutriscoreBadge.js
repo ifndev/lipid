@@ -12,7 +12,7 @@ class NutriscoreBadge extends Component {
   render() {
     return (
       <View>
-        <Badge style={StyleSheet.badge}>{this.props.nutriscore_grade}</Badge>
+        <Badge style={StyleSheet.badge}>{this.props.grade}</Badge>
       </View>
     );
   }

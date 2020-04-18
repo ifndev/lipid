@@ -19,7 +19,7 @@ class ProductCard extends Component {
               <View style={styles.rightText}>
                 <Title>{this.props.item.product.product_name}</Title>
                 <Paragraph numberOfLines={2}>{this.props.item.product.generic_name ? this.props.item.product.generic_name : 'No description available for this product'}</Paragraph>
-                <NutriscoreBadge nutriscore_grade={this.props.item.product.nutriscore_data.nutriscore_grade} style={styles.nutriscoreBadge}/>              
+                <NutriscoreBadge grade={this.props.item.product.nutriscore_data.grade} style={styles.nutriscoreBadge}/>              
               </View>
           </Card.Content>
         </Card>

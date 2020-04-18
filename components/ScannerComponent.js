@@ -62,7 +62,7 @@ class ScannerComponent extends Component {
               product_name: product_name || 'Name not found',
               image_front_url: image_front_url || null, 
               nutriscore_data: {
-                nutriscore_grade: nutriscore_data.nutriscore_grade || '?'
+                grade: nutriscore_data.grade || '?'
               }
             },
           }

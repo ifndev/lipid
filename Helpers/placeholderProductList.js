@@ -7,7 +7,7 @@ export default data = [
             image_front_url: "https://static.openfoodfacts.org/images/products/327/408/000/5003/front_fr.530.400.jpg",
             nutriscore_data:
             {
-                nutriscore_grade: "a"
+                grade: "a"
             }
         },
     },
@@ -19,7 +19,7 @@ export default data = [
             image_front_url: "https://static.openfoodfacts.org/images/products/356/470/900/0169/front_fr.10.400.jpg",
             nutriscore_data:
             {
-                nutriscore_grade: "c"
+                grade: "c"
             }
         }
     },
@@ -31,7 +31,7 @@ export default data = [
             image_front_url: "https://static.openfoodfacts.org/images/products/307/378/107/0286/front_fr.4.400.jpg",
             nutriscore_data:
             {
-                nutriscore_grade: "b"
+                grade: "b"
             }
         },
     },
@@ -43,7 +43,7 @@ export default data = [
             image_front_url: "https://static.openfoodfacts.org/images/products/800/030/026/4388/front_fr.67.400.jpg",
             nutriscore_data:
             {
-                nutriscore_grade: "d"
+                grade: "d"
             }
         },
 
