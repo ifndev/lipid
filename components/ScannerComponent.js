@@ -17,12 +17,14 @@ class ScannerComponent extends Component {
     |--------------------------------------------------
     */
     this.state = {
-      snackBarVisible: false,
       hasCameraPermission: null,
-      snackbarMessage: null,
-      previousResults: [], // Now a list, see #7
       torchOn: false,
       cameraVisible: true,
+
+      snackBarVisible: false,
+      snackbarMessage: null,
+      
+      previousResults: [], // Now a list, see #7
     };
   }
 
@@ -42,19 +44,25 @@ class ScannerComponent extends Component {
   */
 
   _fetchFromOff = (barcode) => {
+
+    //We try to fetch the data corresponding to the barcode from OpenFoodFacts
     fetch(('https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json'), {
       method: 'GET'
     })
       .then((response) => response.json())
-      //If response is in json then in success
+      //If response is in json then in success.
       .then((responseJson) => {
-        //Success
+        //This API responds with status 200 even if no product is found. We have to chech status_verbose
+        //TODO: Error if status isn't good news but is different than that
+
         if (responseJson.status_verbose === "product not found") {
           this.setState({ snackbarMessage: '😒 Can\'t find this product '});
           this._toggleSnackBar();
         }
+
         else {
           const { generic_name, product_name, image_front_url, nutriscore_data } = responseJson.product
+          
           this.props.addProduct({
             code: barcode,
             product: { 
@@ -67,7 +75,7 @@ class ScannerComponent extends Component {
             },
           });
           this.props.navigation.goBack();
-        } 
+        }
       })
       //If response is not in json then in error
       .catch((error) => {
