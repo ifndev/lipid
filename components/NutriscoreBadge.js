@@ -12,7 +12,7 @@ class NutriscoreBadge extends Component {
   render() {
     return (
       <View>
-        <Badge style={StyleSheet.badge}>{this.props.grade}</Badge>
+        <Badge style={styles.badge}> NutriScore: {this.props.grade.toUpperCase()} </Badge>
       </View>
     );
   }
@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
         textAlign:"center",
         alignContent:"center",
         justifyContent:"center",
-        backgroundColor: 'green',
+        backgroundColor: '#fff',
+        fontSize: 15,
+        color: '#81c784'
     }
 });
 
