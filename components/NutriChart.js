@@ -86,7 +86,7 @@ class NutriChart extends Component {
             return (
                 <G>
                     <SvgText
-                        fill="white"
+                        fill="black"
                         stroke="none"
                         fontSize="20"
                         fontWeight="bold"
@@ -97,7 +97,7 @@ class NutriChart extends Component {
                         1337.4/1486
                     </SvgText>
                     <SvgText
-                        fill="white"
+                        fill="black"
                         stroke="none"
                         fontSize="20"
                         fontWeight="bold"

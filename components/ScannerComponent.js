@@ -151,7 +151,7 @@ class ScannerComponent extends Component {
         {this.state.hasCameraPermission === null
           ? <Text>Requesting for camera permission</Text>
           : this.state.hasCameraPermission === false
-            ? <Text style={{ color: '#fff' }}>
+            ? <Text style={{ color: '#000' }}>
               Camera permission is not granted
                 </Text>
             : <Camera
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#000000',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#f00f00',
+    elevation: 10,
   },
   torchButton: {
     position: 'absolute',

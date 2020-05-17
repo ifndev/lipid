@@ -1,5 +1,5 @@
 import React from 'react';
-import { DarkTheme as PaperDarkTheme, Provider as PaperProvider } from 'react-native-paper';
+import { DefaultTheme as PaperDefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 // Navigation
 import 'react-native-gesture-handler';
@@ -20,15 +20,15 @@ import ScannerComponent from './components/ScannerComponent';
 const Stack = createStackNavigator();
 
 const theme = {
-  ...PaperDarkTheme,
-  dark: true,
-  roundness: 2,
+  ...PaperDefaultTheme,
+  dark: false,
+  roundness: 20,
   colors: {
-    ...PaperDarkTheme.colors,
+    ...PaperDefaultTheme.colors,
     primary: '#81c784',
     accent: '#a5d6a7',
-    background: '#102027',
-    backdrop: '#102027'
+    background: '#fff',
+    backdrop: '#FFFFFFAA'
   },
 };
 
