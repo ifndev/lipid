@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addProduct } from '../redux/actions/ProductActions'
+import { addProductFromBarcode } from './historyHandler'
 
 class ScannerComponent extends Component {
   constructor(props) {
@@ -43,49 +44,25 @@ class ScannerComponent extends Component {
   |--------------------------------------------------
   */
 
-  _fetchFromOff = (barcode) => {
+  _ProcessBarcode = async (barcode) => {
+    
+    addProductFromBarcode(barcode, this.props.addProduct).then(() => { //TODO: Find a way to dispatch from offHandler instead of mapping to these props and passing addProduct as an arg
+      this.props.navigation.goBack();
+    }).catch( err => {
 
-    //We try to fetch the data corresponding to the barcode from OpenFoodFacts
-    fetch(('https://world.openfoodfacts.org/api/v0/product/' + barcode + '.json'), {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      //If response is in json then in success.
-      .then((responseJson) => {
-        //This API responds with status 200 even if no product is found. We have to chech status_verbose
-        //TODO: Error if status isn't good news but is different than that
-
-        if (responseJson.status_verbose === "product not found") {
-          this.setState({ snackbarMessage: '😒 Can\'t find this product '});
+      switch (err) {
+        case "fetchError":
+          this.setState({ snackbarMessage: '😒 There was a problem fetching the product infos' });
+          this._toggleSnackBar()
+          break;
+        
+        case "productNotFoundError":
+          this.setState({ snackbarMessage: '😒 Can\'t find this product ' });
           this._toggleSnackBar();
-        }
-
-        else {
-          const { generic_name, product_name, image_front_url, nutriscore_data } = responseJson.product
-
-          // Add the product to the redux state
-          this.props.addProduct({
-            code: barcode,
-            product: { 
-              generic_name: generic_name || null, 
-              product_name: product_name || 'Name not found',
-              image_front_url: image_front_url || null, 
-              nutriscore_data: {
-                grade: nutriscore_data?.grade || '?'
-              }
-            },
-          });
-          //Go back to Home
-          this.props.navigation.goBack();
-        }
-      })
-      //If response is not in json then in error
-      .catch((error) => {
-        //Error 
-        console.error(error);
-        this.setState({ snackbarMessage: '😒 There was a problem fetching the product infos' });
-        this._toggleSnackBar()
-      });
+          break;
+      }
+    })
+    
   }
 
   /**
@@ -118,7 +95,7 @@ class ScannerComponent extends Component {
 
     if (!this.state.previousResults.includes(data)) { //the scanner scans the same barcode infinitely, so we have to prevent the same product from being added 30 times a second
       this.setState({ previousResults: [...this.state.previousResults, data] }); //Append the barcode to previousResults
-      this._fetchFromOff(data);
+      this._ProcessBarcode(data);
     }
     this.setState({cameraVisible: true});
   };
