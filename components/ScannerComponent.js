@@ -146,10 +146,6 @@ class ScannerComponent extends Component {
         >
           Flash
             </Button>
-
-
-
-        <View style={styles.redStripeView}></View>
       </View>
     );
   }
@@ -178,15 +174,6 @@ const styles = StyleSheet.create({
     elevation: 0,
   },
   snackBar: {
-    elevation: 10,
-  },
-  redStripeView: {
-    position: 'absolute',
-    top: (Dimensions.get('window').height / 2) - 20,
-    bottom: (Dimensions.get('window').height / 2) - 20,
-    left: 0,
-    right: 0,
-    backgroundColor: '#f00f00',
     elevation: 10,
   },
   torchButton: {
