@@ -11,8 +11,8 @@ class ProductCard extends Component {
   }
 
   _removeMe = () => {
-    console.log("prompted to remove " + this.props.item.code);
-    this.props.removeProduct(this.props.item.code);
+    console.log("prompted to remove " + this.props.item.key);
+    this.props.removeProduct(this.props.item.key);
   }
 
   render() {

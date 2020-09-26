@@ -15,8 +15,8 @@ const productReducer = (state = INITIAL_STATE, action) => {
         return {history};
 
         case 'REMOVE_PRODUCT':
-            const remcode = action.payload;
-        return { history: history.filter(obj => obj.code !== remcode)}
+            const remkey = action.payload;
+        return { history: history.filter(obj => obj.key !== remkey)}
 
         default:
             return state

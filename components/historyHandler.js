@@ -19,9 +19,9 @@ export const addProductFromBarcode = (barcode, addProduct) => {
                     nutriscore_data: {
                         grade: nutriscore_data?.grade || '?'
                     },
-                    timestamp: moment(),
-                    key: barcode+moment().format(),
                 },
+                timestamp: moment(),
+                key: barcode+moment().format(),
             });
             
             resolve("succesfully added " + barcode);
