@@ -51,13 +51,12 @@ class ScannerComponent extends Component {
     }).catch( err => {
 
       switch (err) {
-        case "fetchError":
-          this.setState({ snackbarMessage: '😒 There was a problem fetching the product infos' });
-          this._toggleSnackBar()
-          break;
-        
         case "productNotFoundError":
           this.setState({ snackbarMessage: '😒 Can\'t find this product ' });
+          this._toggleSnackBar();
+          break;
+        default:
+          this.setState({ snackbarMessage: `Unknown error: ${err}` });
           this._toggleSnackBar();
           break;
       }

@@ -26,7 +26,7 @@ export const addProductFromBarcode = (barcode, addProduct) => {
             //If response is not in json then in error
             .catch((error) => {
                 console.log("ERROR WHILE FETCHING A PRODUCT:" + error);
-                reject("fetchError");
+                reject(error);
             });
     })
 }

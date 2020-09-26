@@ -7,8 +7,12 @@ export const fetchProductFromBarcode = (barcode) => {
             //If response is in json then in success.
             .then((responseJson) => {
                 //This API responds with status 200 even if no product is found. We have to chech status_verbose
-                //TODO: Error if status isn't good news but is different than that
-                resolve(responseJson);
+                if (responseJson.status_verbose == "product not found") {
+                    reject("productNotFoundError")
+                }
+                else {
+                    resolve(responseJson);
+                }
             })
             //If response is not in json then in error
             .catch((error) => {
