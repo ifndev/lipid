@@ -1,4 +1,5 @@
 import { fetchProductFromBarcode } from "./offHandler";
+import moment from 'moment';
 
 export const addProductFromBarcode = (barcode, addProduct) => {
     return new Promise((resolve, reject) => {
@@ -17,10 +18,12 @@ export const addProductFromBarcode = (barcode, addProduct) => {
                     image_front_url: image_front_url || null,
                     nutriscore_data: {
                         grade: nutriscore_data?.grade || '?'
-                    }
+                    },
+                    timestamp: moment(),
+                    key: barcode+moment().format(),
                 },
             });
-
+            
             resolve("succesfully added " + barcode);
         })
             //If response is not in json then in error

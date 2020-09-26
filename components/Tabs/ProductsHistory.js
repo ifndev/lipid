@@ -20,7 +20,7 @@ class ProductsHistory extends Component {
                 <Title style={styles.title}>History</Title>
                 <FlatList
                     data={this.props.products.history}
-                    keyExtractor = {(item) => item.code}
+                    keyExtractor = {(item) => item.key}
                     renderItem={({ item }) => <ProductCard item={item} removeProduct={this.props.removeProduct}/>}
                 />
             </View>
